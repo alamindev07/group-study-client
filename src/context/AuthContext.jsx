@@ -7,13 +7,21 @@ import {
   signInWithPopup,
   signOut,
   onAuthStateChanged,
-  updateProfile,
   sendPasswordResetEmail,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
 
-export const AuthContext = createContext();
+
+
+// import { sendPasswordResetEmail } from "firebase/auth";
+// import { auth } from "../firebase/firebase.config";
+
+
+
+
+export const AuthContext = createContext(null);
 const auth = getAuth(app);
+
 const googleProvider = new GoogleAuthProvider();
 
 const AuthProvider = ({ children }) => {
@@ -21,64 +29,59 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   // Register
-  const register = (email, password) => {
+  const createUser = (email, password) => {
     setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
-  // Login (email/password)
-  const login = (email, password) => {
+  // Login
+  const signIn = (email, password) => {
     setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
-  // Google Login
-  const loginWithGoogle = () => {
+  // Google login
+  const googleSignIn = () => {
     setLoading(true);
     return signInWithPopup(auth, googleProvider);
   };
 
   // Logout
-  const logout = () => {
+  const logOut = () => {
     setLoading(true);
     return signOut(auth);
   };
 
+//   reset password
+
   const resetPassword = (email) => {
-  setLoading(true);
   return sendPasswordResetEmail(auth, email);
 };
 
-
-  // Auth Observer
+  // Monitor auth state
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, currentUser => {
       setUser(currentUser);
       setLoading(false);
     });
+
     return () => unsubscribe();
   }, []);
-
-  const updateUserProfile = (name, photo) => {
-    return updateProfile(auth.currentUser, {
-      displayName: name,
-      photoURL: photo,
-    });
-  };
 
   const authInfo = {
     user,
     loading,
-    register,
-    login,
-    loginWithGoogle,
-    logout,
-    resetPassword,
-    updateUserProfile,
+    createUser,
+    signIn,
+    googleSignIn,
+    logOut,
+    resetPassword
   };
 
   return (
-    <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={authInfo}>
+      {children}
+    </AuthContext.Provider>
   );
 };
 
