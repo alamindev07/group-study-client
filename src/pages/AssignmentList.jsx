@@ -36,7 +36,7 @@ const AssignmentList = () => {
                   Due: {new Date(assignment.dueDate).toLocaleDateString()}
                 </p>
                 <Link
-                  to={`/assignments/${assignment.id}`}
+                  to={`/assignments/${assignment._id}`}
                   className="btn btn-sm btn-primary w-fit"
                 >
                   View & Submit
@@ -51,3 +51,7 @@ const AssignmentList = () => {
 };
 
 export default AssignmentList;
+
+
+
+
