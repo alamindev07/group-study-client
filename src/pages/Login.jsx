@@ -5,6 +5,11 @@ import { toast } from "react-toastify";
 import { Eye, EyeOff } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 
+
+
+
+
+
 const Login = () => {
   const { login, loginWithGoogle, resetPassword } = useAuth();
   const navigate = useNavigate();
@@ -23,13 +28,19 @@ const Login = () => {
 
     setLoading(true);
     try {
-      await login(email, password);
+      // await login(email, password);
+
+      const userCredential = await login(email, password);
+      const user = userCredential.user;
+      localStorage.setItem("user", JSON.stringify({ email: user.email }));
+
+
+
+
       toast.success("Login successful!");
       navigate("/");
     } catch (error) {
-//   console.log("Login error:", error);
-//   console.log("Error code:", error.code);
-//   console.error("Full Firebase Auth Error:", JSON.stringify(error, null, 2));
+
 
 
   if (error.code === "auth/user-not-found") {
@@ -51,8 +62,16 @@ const Login = () => {
 
   const handleGoogleSignIn = async () => {
     try {
-      await loginWithGoogle();
+
+  
+
+      const userCredential = await loginWithGoogle(); 
+    const user = userCredential.user;
+    localStorage.setItem("user", JSON.stringify({ email: user.email }));
+
+
       toast.success("Google login successful!");
+       localStorage.setItem("user", JSON.stringify({ email: user.email }));
       navigate("/");
     } catch (error) {
       toast.error("Google login failed. Try again.");
@@ -157,3 +176,5 @@ const Login = () => {
 };
 
 export default Login;
+
+

@@ -13,11 +13,6 @@ import app from "../firebase/firebase.config";
 
 
 
-// import { sendPasswordResetEmail } from "firebase/auth";
-// import { auth } from "../firebase/firebase.config";
-
-
-
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);

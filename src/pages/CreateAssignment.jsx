@@ -8,14 +8,29 @@ const CreateAssignment = () => {
   const [description, setDescription] = useState("");
   const [difficulty, setDifficulty] = useState("Easy");
   const [dueDate, setDueDate] = useState("");
+
+  const [marks, setMarks] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleCreate = async (e) => {
     e.preventDefault();
 
-    if (!title || !description || !dueDate) {
+    if (!title || !description || !dueDate || !marks || !thumbnail) {
       return toast.error("All fields are required.");
+    }
+
+    if (isNaN(marks) || parseInt(marks) <= 0) {
+      return toast.error("Marks must be a positive number.");
+    }
+
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    const creatorEmail = storedUser?.email;
+
+    if (!creatorEmail) {
+      return toast.error("You must be logged in to create an assignment.");
     }
 
     const newAssignment = {
@@ -23,7 +38,10 @@ const CreateAssignment = () => {
       description,
       difficulty,
       dueDate,
+      marks: parseInt(marks),
+      thumbnail,
       createdAt: new Date().toISOString(),
+      creatorEmail,
     };
 
     setLoading(true);
@@ -52,8 +70,10 @@ const CreateAssignment = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto bg-white p-6 rounded shadow mt-10">
-      <h2 className="text-2xl font-bold mb-4 text-center">Create New Assignment</h2>
+    <div className="max-w-2xl mx-auto bg-gray-100 p-6 rounded shadow mt-10">
+      <h2 className="text-2xl font-bold mb-4 text-center">
+        Create New Assignment
+      </h2>
       <form onSubmit={handleCreate} className="space-y-4">
         <input
           type="text"
@@ -73,6 +93,24 @@ const CreateAssignment = () => {
           required
         ></textarea>
 
+        <input
+          type="number"
+          className="input input-bordered w-full"
+          placeholder="Total Marks"
+          value={marks}
+          onChange={(e) => setMarks(e.target.value)}
+          required
+        />
+
+        <input
+          type="text"
+          className="input input-bordered w-full"
+          placeholder="Thumbnail Image URL"
+          value={thumbnail}
+          onChange={(e) => setThumbnail(e.target.value)}
+          required
+        />
+
         <select
           className="select select-bordered w-full"
           value={difficulty}
@@ -91,7 +129,11 @@ const CreateAssignment = () => {
           required
         />
 
-        <button type="submit" className="btn btn-primary w-full" disabled={loading}>
+        <button
+          type="submit"
+          className="btn btn-primary w-full"
+          disabled={loading}
+        >
           {loading ? "Creating..." : "Create Assignment"}
         </button>
       </form>
