@@ -156,12 +156,16 @@ const Assignments = () => {
                   >
                     View
                   </Link>
-                  <Link
-                    to={`/update-assignment/${assignment._id}`}
-                    className="btn btn-primary btn-sm"
-                  >
-                    Update
-                  </Link>
+
+                  {/* update button */}
+                  {userEmail === assignment.creatorEmail && (
+                    <Link
+                      to={`/update-assignment/${assignment._id}`}
+                      className="btn btn-primary btn-sm"
+                    >
+                      Update
+                    </Link>
+                  )}
 
                   <button
                     onClick={() =>
