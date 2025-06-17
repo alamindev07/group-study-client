@@ -11,7 +11,7 @@ const CreateAssignment = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleCreate = (e) => {
+  const handleCreate = async (e) => {
     e.preventDefault();
 
     if (!title || !description || !dueDate) {
@@ -19,7 +19,6 @@ const CreateAssignment = () => {
     }
 
     const newAssignment = {
-      id: Date.now(),
       title,
       description,
       difficulty,
@@ -28,13 +27,28 @@ const CreateAssignment = () => {
     };
 
     setLoading(true);
-    // Temporarily store in localStorage (simulate backend)
-    const existing = JSON.parse(localStorage.getItem("assignments")) || [];
-    localStorage.setItem("assignments", JSON.stringify([...existing, newAssignment]));
 
-    toast.success("Assignment created!");
-    setLoading(false);
-    navigate("/assignments"); // Or wherever your list page is
+    try {
+      const res = await fetch("http://localhost:5000/api/assignments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newAssignment),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success("Assignment created successfully!");
+        navigate("/assignments");
+      } else {
+        toast.error(data.message || "Failed to create assignment.");
+      }
+    } catch (err) {
+      console.error("Error:", err);
+      toast.error("Something went wrong. Try again.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
