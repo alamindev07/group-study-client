@@ -161,7 +161,7 @@ const Assignments = () => {
                   {userEmail === assignment.creatorEmail && (
                     <Link
                       to={`/update-assignment/${assignment._id}`}
-                      className="btn btn-primary btn-sm"
+                      className="btn btn-success btn-sm"
                     >
                       Update
                     </Link>
