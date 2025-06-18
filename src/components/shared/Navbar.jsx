@@ -57,7 +57,7 @@ const Navbar = () => {
             <div className="dropdown dropdown-end">
               <div
                 tabIndex={0}
-                className="btn btn-ghost btn-circle avatar tooltip"
+                className="mt-4 z-[1] btn btn-ghost btn-circle avatar tooltip"
                 data-tip={user.displayName || "User"}
               >
                 <div className="w-10 rounded-full">

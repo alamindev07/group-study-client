@@ -151,7 +151,7 @@ const Assignments = () => {
 
                 <div className="card-actions justify-around mt-4">
                   <Link
-                    to={`/assignment/${assignment._id}`}
+                    to={`/assignments/${assignment._id}`}
                     className="btn btn-primary btn-sm"
                   >
                     View

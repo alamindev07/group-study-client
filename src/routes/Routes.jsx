@@ -7,10 +7,10 @@ import CreateAssignment from "../pages/CreateAssignment";
 import Assignments from "../pages/Assignments";
 import MyAssignments from "../pages/MyAssignments";
 import PendingAssignments from "../pages/PendingAssignments";
-import AssignmentDetails from "../pages/AssignmentDetails";
 import PrivateRoute from "./PrivateRoute";
 import Error from "../pages/Error";
 import UpdateAssignment from "../pages/UpdateAssignment";
+import AssignmentDetails from "../pages/AssignmentDetails";
 
 const router = createBrowserRouter([
   {
