@@ -1,8 +1,6 @@
-
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-// import { useAuth } from "../hooks/useAuth"; // assuming you're using a custom hook
 
 const AssignmentDetails = () => {
   const { id } = useParams();
@@ -28,7 +26,7 @@ const AssignmentDetails = () => {
 
     const submission = {
       assignmentId: id,
-      userEmail: user.email,
+      userEmail: user?.email,
       googleDocLink,
       quickNote,
       status: "pending",
@@ -55,24 +53,41 @@ const AssignmentDetails = () => {
     }
   };
 
-  if (!assignment) return <p className="text-center">Loading...</p>;
+  if (!assignment) return <p className="text-center py-10 text-lg">Loading...</p>;
 
   return (
-    <div className="max-w-3xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-4">{assignment.title}</h2>
-      <img src={assignment.thumbnail} alt="Assignment" className="w-full rounded mb-4" />
-      <p><strong>Marks:</strong> {assignment.marks}</p>
-      <p><strong>Difficulty:</strong> {assignment.difficulty}</p>
-      <p><strong>Due Date:</strong> {assignment.dueDate?.slice(0, 10)}</p>
-      <button onClick={() => setShowModal(true)} className="btn btn-primary mt-4">
-        Take Assignment
-      </button>
+    <div className="max-w-4xl mx-auto px-4 py-8">
+      <div className="bg-base-100 shadow-lg rounded-lg overflow-hidden p-4 md:p-6">
+        <h2 className="text-2xl font-bold text-center mb-4">{assignment.title}</h2>
 
+        <div className="flex flex-col md:flex-row gap-6 items-center">
+          <img
+            src={assignment.thumbnail}
+            alt="Assignment"
+            className="w-full md:w-1/2 rounded object-cover shadow-md"
+          />
+
+          <div className="flex-1 space-y-3 text-sm md:text-base">
+            <p><strong>Marks:</strong> {assignment.marks}</p>
+            <p><strong>Difficulty:</strong> {assignment.difficulty}</p>
+            <p><strong>Due Date:</strong> {assignment.dueDate?.slice(0, 10)}</p>
+            <button
+              onClick={() => setShowModal(true)}
+              className="btn btn-primary mt-4 w-full sm:w-auto"
+            >
+              Take Assignment
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Modal */}
       {showModal && (
         <dialog open className="modal modal-open">
-          <div className="modal-box">
+          <div className="modal-box w-full max-w-lg">
             <form onSubmit={handleSubmit} className="space-y-4">
-              <h3 className="font-bold text-lg">Submit Assignment</h3>
+              <h3 className="text-xl font-semibold mb-2">Submit Assignment</h3>
+
               <input
                 type="url"
                 name="googleDocLink"
@@ -86,9 +101,15 @@ const AssignmentDetails = () => {
                 placeholder="Write a quick note..."
                 required
               />
-              <div className="modal-action">
+              <div className="modal-action flex justify-end gap-3">
                 <button type="submit" className="btn btn-success">Submit</button>
-                <button type="button" onClick={() => setShowModal(false)} className="btn">Cancel</button>
+                <button
+                  type="button"
+                  onClick={() => setShowModal(false)}
+                  className="btn btn-outline"
+                >
+                  Cancel
+                </button>
               </div>
             </form>
           </div>

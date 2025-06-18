@@ -7,10 +7,10 @@ import CreateAssignment from "../pages/CreateAssignment";
 import Assignments from "../pages/Assignments";
 import MyAssignments from "../pages/MyAssignments";
 import PrivateRoute from "./PrivateRoute";
-import Error from "../pages/Error";
 import UpdateAssignment from "../pages/UpdateAssignment";
 import AssignmentDetails from "../pages/AssignmentDetails";
 import PendingAssignments from "../pages/PendingAssignments";
+import ErrorPage from "../pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -61,6 +61,10 @@ const router = createBrowserRouter([
             <AssignmentDetails />
           </PrivateRoute>
         ),
+      },
+      {
+        path: "*",
+        element: (<ErrorPage></ErrorPage>)
       },
     ],
   },
