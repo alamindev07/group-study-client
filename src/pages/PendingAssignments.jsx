@@ -7,28 +7,21 @@ const PendingAssignments = () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-   
-    fetch(`http://localhost:5000/api/submissions/all`)
-      .then(res => res.json())
-      .then(data => {
-  if (!Array.isArray(data)) {
-    toast.error("Unexpected response from server");
-    return;
-  }
-
-  const filtered = data.filter(s => s.status === "pending");
-
-
-
-  setSubmissions(filtered);
-})   
-
-
-      .catch(err => {
+    fetch(`https://carrer-code-server-two.vercel.app/api/submissions/all`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (!Array.isArray(data)) {
+          toast.error("Unexpected response from server");
+          return;
+        }
+        const filtered = data.filter((s) => s.status === "pending");
+        setSubmissions(filtered);
+      })
+      .catch((err) => {
         console.error(err);
         toast.error("Failed to load pending assignments");
       });
-  }, [user.email]);
+  }, [user?.email]);
 
   const handleGiveMark = async (e) => {
     e.preventDefault();
@@ -37,21 +30,24 @@ const PendingAssignments = () => {
     const feedback = form.feedback.value;
 
     try {
-      const res = await fetch(`http://localhost:5000/api/submissions/${selected._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          obtainedMarks,
-          feedback,
-          examinerEmail: user.email,
-        }),
-      });
+      const res = await fetch(
+        `https://carrer-code-server-two.vercel.app/api/submissions/${selected._id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            obtainedMarks,
+            feedback,
+            examinerEmail: user.email,
+          }),
+        }
+      );
 
       const result = await res.json();
 
       if (res.ok) {
         toast.success("Marked successfully!");
-        setSubmissions(prev => prev.filter(s => s._id !== selected._id));
+        setSubmissions((prev) => prev.filter((s) => s._id !== selected._id));
         setSelected(null);
       } else {
         toast.error(result.message);
@@ -63,16 +59,20 @@ const PendingAssignments = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-4 text-center">Pending Assignments</h2>
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <h2 className="text-3xl font-bold text-center text-primary mb-8">
+        Pending Assignments
+      </h2>
 
       {submissions.length === 0 ? (
-        <p>No pending assignments available.</p>
+        <p className="text-xl text-center text-gray-500">
+          No pending assignments available.
+        </p>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="table table-zebra w-full">
-            <thead>
-              <tr className="text-xl text-center font-bold">
+        <div className="overflow-x-auto shadow rounded-lg bg-base-100">
+          <table className="table w-full table-zebra">
+            <thead className="bg-base-200 text-base font-semibold text-base-content text-center">
+              <tr>
                 <th>Title</th>
                 <th>Total Marks</th>
                 <th>Examinee</th>
@@ -81,24 +81,26 @@ const PendingAssignments = () => {
             </thead>
             <tbody>
               {submissions.map((s) => (
-                <tr className="text-center" key={s._id}>
-                  <td>{s.title}</td>
+                <tr
+                  key={s._id}
+                  className="hover:bg-base-300 text-center transition duration-200"
+                >
+                  <td className="font-medium">{s.title}</td>
                   <td>{s.marks}</td>
                   <td>{s.userEmail}</td>
                   <td>
                     <button
-  className="btn btn-sm btn-primary"
-  onClick={() => {
-    if (s.userEmail === user.email) {
-      toast.error("You are not permitted to give mark in your own created assignment");
-      return;
-    }
-    setSelected(s);
-  }}
->
-  Give Mark
-</button>
-
+                      className="btn btn-sm btn-primary"
+                      onClick={() => {
+                        if (s.userEmail === user.email) {
+                          toast.error("You cannot grade your own Assignment");
+                          return;
+                        }
+                        setSelected(s);
+                      }}
+                    >
+                      Give Mark
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -108,9 +110,9 @@ const PendingAssignments = () => {
       )}
 
       {selected && (
-        <div className="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-          <div className="bg-white p-6 rounded-lg shadow max-w-md w-full">
-            <h3 className="text-xl font-semibold mb-4">Grade Assignment</h3>
+        <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center px-4">
+          <div className="bg-white max-w-md w-full p-6 rounded-xl shadow-xl relative">
+            <h3 className="text-xl font-bold mb-4">Grade Assignment</h3>
             <p>
               <strong>Google Docs:</strong>{" "}
               <a
@@ -161,5 +163,3 @@ const PendingAssignments = () => {
 };
 
 export default PendingAssignments;
-
-

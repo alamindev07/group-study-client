@@ -18,7 +18,7 @@ const UpdateAssignment = () => {
   const userEmail = user?.email;
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/assignments/${id}`)
+    fetch(`https://carrer-code-server-two.vercel.app/api/assignments/${id}`)
       .then((res) => {
         if (!res.ok) {
           throw new Error("Assignment not found");
@@ -36,7 +36,7 @@ const UpdateAssignment = () => {
             thumbnail: data.thumbnail,
             marks: data.marks,
             difficulty: data.difficulty,
-            dueDate: data.dueDate?.slice(0, 10), 
+            dueDate: data.dueDate?.slice(0, 10),
           });
         }
       })
@@ -58,17 +58,20 @@ const UpdateAssignment = () => {
     const updatedAssignment = {
       ...formData,
       marks: parseInt(formData.marks),
-      creatorEmail: userEmail, 
+      creatorEmail: userEmail,
     };
 
     try {
-      const res = await fetch(`http://localhost:5000/api/assignments/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedAssignment),
-      });
+      const res = await fetch(
+        `https://carrer-code-server-two.vercel.app/api/assignments/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedAssignment),
+        }
+      );
 
       const result = await res.json();
 

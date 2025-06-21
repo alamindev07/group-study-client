@@ -9,10 +9,10 @@ const AssignmentDetails = () => {
   const user = JSON.parse(localStorage.getItem("user"));
 
   useEffect(() => {
-    fetch(`http://localhost:5000/api/assignments/${id}`)
-      .then(res => res.json())
-      .then(data => setAssignment(data))
-      .catch(err => {
+    fetch(`https://carrer-code-server-two.vercel.app/api/assignments/${id}`)
+      .then((res) => res.json())
+      .then((data) => setAssignment(data))
+      .catch((err) => {
         console.error(err);
         toast.error("Failed to load assignment");
       });
@@ -30,15 +30,18 @@ const AssignmentDetails = () => {
       googleDocLink,
       quickNote,
       status: "pending",
-      submittedAt: new Date().toISOString()
+      submittedAt: new Date().toISOString(),
     };
 
     try {
-      const res = await fetch(`http://localhost:5000/api/submissions`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(submission)
-      });
+      const res = await fetch(
+        `https://carrer-code-server-two.vercel.app/api/submissions`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(submission),
+        }
+      );
 
       const data = await res.json();
       if (res.ok) {
@@ -53,12 +56,15 @@ const AssignmentDetails = () => {
     }
   };
 
-  if (!assignment) return <p className="text-center py-10 text-lg">Loading...</p>;
+  if (!assignment)
+    return <p className="text-center py-10 text-lg">Loading...</p>;
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="bg-base-100 shadow-lg rounded-lg overflow-hidden p-4 md:p-6">
-        <h2 className="text-2xl font-bold text-center mb-4">{assignment.title}</h2>
+        <h2 className="text-2xl font-bold text-center mb-4">
+          {assignment.title}
+        </h2>
 
         <div className="flex flex-col md:flex-row gap-6 items-center">
           <img
@@ -68,9 +74,15 @@ const AssignmentDetails = () => {
           />
 
           <div className="flex-1 space-y-3 text-sm md:text-base">
-            <p><strong>Marks:</strong> {assignment.marks}</p>
-            <p><strong>Difficulty:</strong> {assignment.difficulty}</p>
-            <p><strong>Due Date:</strong> {assignment.dueDate?.slice(0, 10)}</p>
+            <p>
+              <strong>Marks:</strong> {assignment.marks}
+            </p>
+            <p>
+              <strong>Difficulty:</strong> {assignment.difficulty}
+            </p>
+            <p>
+              <strong>Due Date:</strong> {assignment.dueDate?.slice(0, 10)}
+            </p>
             <button
               onClick={() => setShowModal(true)}
               className="btn btn-primary mt-4 w-full sm:w-auto"
@@ -102,7 +114,9 @@ const AssignmentDetails = () => {
                 required
               />
               <div className="modal-action flex justify-end gap-3">
-                <button type="submit" className="btn btn-success">Submit</button>
+                <button type="submit" className="btn btn-success">
+                  Submit
+                </button>
                 <button
                   type="button"
                   onClick={() => setShowModal(false)}

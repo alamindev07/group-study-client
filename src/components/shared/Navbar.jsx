@@ -1,5 +1,4 @@
 
-
 import { Link, NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthProvider";
@@ -26,29 +25,29 @@ const Navbar = () => {
   const navLinks = (
     <>
       <li>
-        <NavLink to="/" className={navLinkStyle} end>
+        <NavLink to="/" className={navLinkStyle} onClick={() => document.activeElement?.blur()} end>
           Home
         </NavLink>
       </li>
       <li>
-        <NavLink to="/assignments" className={navLinkStyle}>
+        <NavLink to="/assignments" className={navLinkStyle} onClick={() => document.activeElement?.blur()}>
           Assignments
         </NavLink>
       </li>
       {user && (
         <>
           <li>
-            <NavLink to="/create-assignment" className={navLinkStyle}>
+            <NavLink to="/create-assignment" className={navLinkStyle} onClick={() => document.activeElement?.blur()}>
               Create Assignment
             </NavLink>
           </li>
           <li>
-            <NavLink to="/my-assignments" className={navLinkStyle}>
+            <NavLink to="/my-assignments" className={navLinkStyle} onClick={() => document.activeElement?.blur()}>
               My Assignments
             </NavLink>
           </li>
           <li>
-            <NavLink to="/pending-assignments" className={navLinkStyle}>
+            <NavLink to="/pending-assignments" className={navLinkStyle} onClick={() => document.activeElement?.blur()}>
               Pending Assignments
             </NavLink>
           </li>
@@ -58,7 +57,7 @@ const Navbar = () => {
   );
 
   return (
-    <div className="bg-base-200 shadow sticky top-0 z-50">
+    <div className="bg-teal-200 shadow sticky top-0 z-50">
       <div className="navbar max-w-7xl mx-auto px-4">
         {/* Start */}
         <div className="navbar-start">
@@ -86,7 +85,10 @@ const Navbar = () => {
               {user ? (
                 <li>
                   <button
-                    onClick={handleLogout}
+                    onClick={() => {
+                      document.activeElement?.blur();
+                      handleLogout();
+                    }}
                     className="btn btn-error btn-sm"
                   >
                     Logout
@@ -95,12 +97,20 @@ const Navbar = () => {
               ) : (
                 <>
                   <li>
-                    <Link to="/login" className="btn btn-outline btn-sm">
+                    <Link
+                      to="/login"
+                      className="btn btn-outline btn-sm"
+                      onClick={() => document.activeElement?.blur()}
+                    >
                       Login
                     </Link>
                   </li>
                   <li>
-                    <Link to="/register" className="btn btn-error btn-sm">
+                    <Link
+                      to="/register"
+                      className="btn btn-error btn-sm"
+                      onClick={() => document.activeElement?.blur()}
+                    >
                       Register
                     </Link>
                   </li>
@@ -143,17 +153,26 @@ const Navbar = () => {
                 className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-200 rounded-box w-52"
               >
                 <li>
-                  <Link to="/create-assignment">Create Assignment</Link>
+                  <Link to="/create-assignment" onClick={() => document.activeElement?.blur()}>
+                    Create Assignment
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/my-assignments">My Assignments</Link>
+                  <Link to="/my-assignments" onClick={() => document.activeElement?.blur()}>
+                    My Assignments
+                  </Link>
                 </li>
                 <li>
-                  <Link to="/pending-assignments">Pending Assignments</Link>
+                  <Link to="/pending-assignments" onClick={() => document.activeElement?.blur()}>
+                    Pending Assignments
+                  </Link>
                 </li>
                 <li>
                   <button
-                    onClick={handleLogout}
+                    onClick={() => {
+                      document.activeElement?.blur();
+                      handleLogout();
+                    }}
                     className="btn btn-error btn-sm mt-2"
                   >
                     Logout
@@ -165,9 +184,9 @@ const Navbar = () => {
             <>
               <Link
                 to="/login"
-                className="btn btn-outline btn-sm mr-2 hidden md:inline-block"
+                className="btn btn-outline btn-sm hidden mr-2 md:inline-block"
               >
-                Login
+                login
               </Link>
               <Link
                 to="/register"

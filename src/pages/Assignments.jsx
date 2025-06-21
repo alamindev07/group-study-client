@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -13,7 +12,7 @@ const Assignments = () => {
   const userEmail = storedUser?.email;
 
   useEffect(() => {
-    fetch("http://localhost:5000/api/assignments")
+    fetch("https://carrer-code-server-two.vercel.app/api/assignments")
       .then((res) => {
         if (!res.ok) throw new Error("Failed to fetch assignments");
         return res.json();
@@ -51,7 +50,7 @@ const Assignments = () => {
 
     try {
       const res = await fetch(
-        `http://localhost:5000/api/assignments/${id}?email=${userEmail}`,
+        `https://carrer-code-server-two.vercel.app/api/assignments/${id}?email=${userEmail}`,
         {
           method: "DELETE",
         }
@@ -96,8 +95,8 @@ const Assignments = () => {
 
       {filteredAssignments.length === 0 ? (
         <div className="text-center py-10">
-          <p className="text-xl font-semibold mb-4">
-            No Assignment created yet
+          <p className="text-3xl font-semibold mb-4 text-red-500">
+            No Assignment Found.
           </p>
           <button
             className="btn btn-primary"
@@ -111,10 +110,12 @@ const Assignments = () => {
           {filteredAssignments.map((assignment) => (
             <div
               key={assignment._id}
-              className="card bg-base-200 shadow-md hover:shadow-xl transition-shadow duration-300"
+              className="card bg-base-300 shadow-md hover:shadow-xl transition-shadow duration-300"
             >
               <div className="card-body">
-                <h2 className="card-title text-center  text-xl font-bold">{assignment.title}</h2>
+                <h2 className="card-title text-center  text-xl font-bold">
+                  {assignment.title}
+                </h2>
 
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mt-2">
                   <img
@@ -123,7 +124,7 @@ const Assignments = () => {
                     alt="Assignment Thumbnail"
                   />
 
-                  <div className="text-sm space-y-1">
+                  <div className="text-sm space-y-3">
                     <p>
                       <strong>Total Marks:</strong> {assignment.marks}
                     </p>
@@ -161,10 +162,7 @@ const Assignments = () => {
                       </Link>
                       <button
                         onClick={() =>
-                          handleDelete(
-                            assignment._id,
-                            assignment.creatorEmail
-                          )
+                          handleDelete(assignment._id, assignment.creatorEmail)
                         }
                         className="btn btn-error btn-sm"
                       >
@@ -183,4 +181,3 @@ const Assignments = () => {
 };
 
 export default Assignments;
-

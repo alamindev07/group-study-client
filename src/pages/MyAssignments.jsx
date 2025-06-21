@@ -1,5 +1,3 @@
-
-
 import { useEffect, useState } from "react";
 
 const MyAssignments = () => {
@@ -9,7 +7,9 @@ const MyAssignments = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:5000/api/submissions?email=${user.email}`)
+    fetch(
+      `https://carrer-code-server-two.vercel.app/api/submissions?email=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setMySubmissions(data);
@@ -17,35 +17,51 @@ const MyAssignments = () => {
       .catch((err) => {
         console.error(err);
       });
-  }, [user.email]);
+  }, [user?.email]);
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-4 text-center">My Assignments</h2>
+    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      <h2 className="text-3xl font-bold text-center text-primary mb-8">
+        My Assignments
+      </h2>
 
       {mySubmissions.length === 0 ? (
-        <p className="text-gray-100 text-2xl">No assignments submitted yet.</p>
+        <div className="text-center py-10">
+          <p className="text-lg text-gray-600">No assignments submitted yet.</p>
+        </div>
       ) : (
-        <div className="overflow-x-auto">
-          <table className="table w-full table-zebra">
-            <thead>
-              <tr className="text-xl font-bold text-center">
-                <th>Ser No</th>
+        <div className="overflow-x-auto shadow-md rounded-lg bg-base-100">
+          <table className="table table-zebra w-full">
+            <thead className="bg-base-200 text-base font-semibold text-base-content">
+              <tr className="text-center">
+                <th>#</th>
                 <th>Title</th>
-                <th>Obtained Marks</th>
-                <th>Examiner Feedback</th>
-                <th>Submitted At</th>
+                <th>Marks</th>
+                <th>Feedback</th>
+                <th>Submitted</th>
                 <th>Status</th>
               </tr>
             </thead>
             <tbody>
               {mySubmissions.map((s, index) => (
-                <tr className="text-center" key={s._id}>
-                  <td>{index +1 || "Untitled"}</td>
-                  <td>{s.title || "Untitled"}</td>
-                 
-                  <td>{s.status === "graded" ? s.obtainedMarks : "-"}</td>
-                  <td>{s.status === "graded" ? s.feedback : "-"}</td>
+                <tr
+                  key={s._id}
+                  className="hover:bg-base-300 transition duration-200 text-center"
+                >
+                  <td>{index + 1}</td>
+                  <td className="font-medium">{s.title || "Untitled"}</td>
+                  <td>
+                    {s.status === "graded" ? (
+                      <span className="text-success font-semibold">
+                        {s.obtainedMarks}
+                      </span>
+                    ) : (
+                      "-"
+                    )}
+                  </td>
+                  <td className="max-w-xs break-words">
+                    {s.status === "graded" ? s.feedback : "-"}
+                  </td>
                   <td>{new Date(s.submittedAt).toLocaleString()}</td>
                   <td>
                     <span
@@ -69,6 +85,3 @@ const MyAssignments = () => {
 };
 
 export default MyAssignments;
-
-
-

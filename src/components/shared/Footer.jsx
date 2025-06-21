@@ -3,7 +3,7 @@ import { FaFacebook, FaTwitter, FaGithub, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-base-300 text-base-content mt-10">
+    <footer className="bg-purple-400 text-base-content mt-10">
       <div className="max-w-7xl mx-auto p-10 grid grid-cols-1 md:grid-cols-3 gap-8">
         
         {/* Address Section */}
@@ -50,7 +50,7 @@ const Footer = () => {
             </a>
           </div>
 
-          <div className=" py-4 border-t border-base-300">
+          <div className=" py-4 border-t-2 border-red-500 mt-8">
         <p>© {new Date().getFullYear()} GroupStudyHub. All rights reserved.</p>
       </div>
         </div>
@@ -62,4 +62,5 @@ const Footer = () => {
 };
 
 export default Footer;
+
 
