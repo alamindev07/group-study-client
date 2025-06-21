@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import PageTitle from "../components/shared/PageTitle";
 
 const UpdateAssignment = () => {
   const { id } = useParams();
@@ -91,6 +92,8 @@ const UpdateAssignment = () => {
 
   return (
     <div className="max-w-3xl mx-auto p-6">
+
+       <PageTitle title="UpdateAssignment" />
       <h2 className="text-2xl font-bold mb-6">Update Assignment</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input

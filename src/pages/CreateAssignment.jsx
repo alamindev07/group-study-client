@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import PageTitle from "../components/shared/PageTitle";
 
 const CreateAssignment = () => {
   const [title, setTitle] = useState("");
@@ -70,7 +71,14 @@ const CreateAssignment = () => {
   };
 
   return (
+
+   
+
     <div className="max-w-xl mx-auto px-4 py-10">
+      
+       <PageTitle title="CreateAssignment" />
+
+
       <div className="bg-white shadow-2xl rounded-2xl p-6 md:p-10">
         <h2 className="text-3xl font-bold text-center text-blue-600 mb-6">
           📘 Create New Assignment

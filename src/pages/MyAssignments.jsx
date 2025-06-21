@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import PageTitle from "../components/shared/PageTitle";
 
 const MyAssignments = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -21,6 +22,8 @@ const MyAssignments = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+       <PageTitle title="MyAssignment" />
       <h2 className="text-3xl font-bold text-center text-primary mb-8">
         My Assignments
       </h2>

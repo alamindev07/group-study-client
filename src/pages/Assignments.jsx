@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import PageTitle from "../components/shared/PageTitle";
 
 const Assignments = () => {
   const [assignments, setAssignments] = useState([]);
@@ -72,6 +73,8 @@ const Assignments = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-8">
+       <PageTitle title="Assignments" />
+
       <h1 className="text-3xl font-bold text-center mb-6">All Assignments</h1>
 
       <div className="flex flex-col md:flex-row justify-between gap-4 mb-6">

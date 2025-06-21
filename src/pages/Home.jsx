@@ -11,6 +11,8 @@ import {
 } from "react-icons/fa";
 import bannerImage from "../assets/banner.jpg";
 import TechnologySlider from "../components/shared/TechnologySlider";
+import { div } from "framer-motion/client";
+import PageTitle from "../components/shared/PageTitle";
 
 const faqs = [
   {
@@ -42,8 +44,13 @@ const Home = () => {
   };
 
   return (
+    
+   <>
+
+  <PageTitle title="Home" />
+
+
     <div className="max-w-7xl mx-auto px-4  space-y-10">
- 
       {/* Banner Section with Background Image */}
 <motion.section
   className="relative h-[400px] md:h-[500px] lg:h-[700px] w-full bg-cover bg-center rounded-xl overflow-hidden flex items-center justify-center"
@@ -162,6 +169,8 @@ const Home = () => {
         </div>
       </section>
     </div>
+   
+   </>
   );
 };
 

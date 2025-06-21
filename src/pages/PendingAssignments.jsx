@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import PageTitle from "../components/shared/PageTitle";
 
 const PendingAssignments = () => {
   const [submissions, setSubmissions] = useState([]);
@@ -60,6 +61,9 @@ const PendingAssignments = () => {
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+
+       <PageTitle title="PendingAssignment" />
+
       <h2 className="text-3xl font-bold text-center text-primary mb-8">
         Pending Assignments
       </h2>

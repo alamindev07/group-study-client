@@ -4,6 +4,7 @@ import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
 import { Eye, EyeOff } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
+import PageTitle from "../components/shared/PageTitle";
 
 
 
@@ -109,6 +110,7 @@ const Login = () => {
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded shadow mt-10 animate-fade-in-login">
+       <PageTitle title="Login" />
       <h2 className="text-2xl font-semibold mb-4 text-center">Login</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input

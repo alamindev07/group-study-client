@@ -4,6 +4,7 @@ import useAuth from "../hooks/useAuth";
 import { toast } from "react-toastify";
 import { MdEmail, MdPerson, MdPhotoCamera } from "react-icons/md";
 import { HiEye, HiEyeOff } from "react-icons/hi";
+import PageTitle from "../components/shared/PageTitle";
 
 const Register = () => {
   const { register, updateUserProfile } = useAuth(); // use `register` instead of createUser
@@ -50,6 +51,7 @@ const Register = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 px-4">
+       <PageTitle title="Register" />
       <div className="bg-white shadow-2xl rounded-2xl p-8 max-w-md w-full space-y-6 animate-fade-in">
         <h2 className="text-3xl font-bold text-center text-gray-800">Register</h2>
         <form onSubmit={handleSubmit} className="space-y-4">

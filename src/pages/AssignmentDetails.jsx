@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
+import PageTitle from "../components/shared/PageTitle";
 
 const AssignmentDetails = () => {
   const { id } = useParams();
@@ -61,6 +62,10 @@ const AssignmentDetails = () => {
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
+
+
+       <PageTitle title="AssignmentDetails" />
+
       <div className="bg-base-100 shadow-lg rounded-lg overflow-hidden p-4 md:p-6">
         <h2 className="text-2xl font-bold text-center mb-4">
           {assignment.title}
