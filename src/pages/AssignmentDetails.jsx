@@ -46,7 +46,7 @@ const AssignmentDetails = () => {
 
       const data = await res.json();
       if (res.ok) {
-        toast.success("Assignment submitted successfully!");
+        toast.success("Assignment submitted successfully! Go To My Assignment page To see Submitted Assignment");
         setShowModal(false);
       } else {
         toast.error(data.message || "Submission failed");

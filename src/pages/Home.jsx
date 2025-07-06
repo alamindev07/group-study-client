@@ -11,7 +11,6 @@ import {
 } from "react-icons/fa";
 import bannerImage from "../assets/banner.jpg";
 import TechnologySlider from "../components/shared/TechnologySlider";
-import { div } from "framer-motion/client";
 import PageTitle from "../components/shared/PageTitle";
 
 const faqs = [

@@ -1,17 +1,24 @@
 
+
 import { Link, NavLink } from "react-router-dom";
 import { useContext } from "react";
-import { AuthContext } from "../../context/AuthProvider";
 import { toast } from "react-toastify";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../firebase/firebase.config";
+import { AuthContext } from "../../context/AuthProvider";
 import ThemeToggle from "./ThemeToggle";
 
 const Navbar = () => {
-  const { user, logout } = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
+  const [user, loading] = useAuthState(auth);
 
   const handleLogout = async () => {
     try {
       await logout();
-      toast.success("Logged out successfully!");
+         localStorage.removeItem("token"); // remove JWT or token
+         localStorage.removeItem("user");  //  remove stored user info
+
+         toast.success("Logged out successfully!");
     } catch (err) {
       toast.error("Error during logout.");
     }
@@ -55,6 +62,14 @@ const Navbar = () => {
       )}
     </>
   );
+
+  if (loading) {
+    return (
+      <div className="w-full py-10 text-center">
+        <span className="loading loading-spinner loading-lg text-primary"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-teal-200 shadow sticky top-0 z-50">
@@ -186,7 +201,7 @@ const Navbar = () => {
                 to="/login"
                 className="btn btn-outline btn-sm hidden mr-2 md:inline-block"
               >
-                login
+                Login
               </Link>
               <Link
                 to="/register"
@@ -206,5 +221,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-

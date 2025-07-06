@@ -1,3 +1,4 @@
+
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layout/MainLayout";
 import Home from "../pages/Home";
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
-    errorElement: <Error />,
+    errorElement: <ErrorPage />, // ✅ Fix here
     children: [
       { path: "/", element: <Home /> },
       { path: "/login", element: <Login /> },
@@ -29,7 +30,10 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
-      { path: "/assignments", element: <Assignments /> },
+      {
+        path: "/assignments",
+        element: <Assignments />, // Optional: wrap in PrivateRoute if needed
+      },
       {
         path: "/my-assignments",
         element: (
@@ -50,7 +54,7 @@ const router = createBrowserRouter([
         path: "/pending-assignments",
         element: (
           <PrivateRoute>
-            <PendingAssignments></PendingAssignments>
+            <PendingAssignments />
           </PrivateRoute>
         ),
       },
@@ -64,7 +68,7 @@ const router = createBrowserRouter([
       },
       {
         path: "*",
-        element: (<ErrorPage></ErrorPage>)
+        element: <ErrorPage />,
       },
     ],
   },

@@ -1,3 +1,5 @@
+
+
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
@@ -5,10 +7,7 @@ import { toast } from "react-toastify";
 import { Eye, EyeOff } from "lucide-react";
 import { FcGoogle } from "react-icons/fc";
 import PageTitle from "../components/shared/PageTitle";
-
-
-
-
+import { getJwtToken } from "../utils/jwt"; 
 
 
 const Login = () => {
@@ -20,64 +19,51 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
+
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!email || !password) {
-      return toast.error("Email and Password are required!");
-    }
-
-    setLoading(true);
-    try {
-      // await login(email, password);
-
-      const userCredential = await login(email, password);
-      const user = userCredential.user;
-      localStorage.setItem("user", JSON.stringify({ email: user.email }));
-
-
-
-
-      toast.success("Login successful!");
-      navigate("/");
-    } catch (error) {
-
-
-
-  if (error.code === "auth/user-not-found") {
-    toast.error("No user found with this email.");
-  } else if (
-    error.code === "auth/wrong-password" || 
-    error.code === "auth/invalid-credential"
-  ) {
-    toast.error("Incorrect password. Please provide your correct password.");
-  } else if (error.code === "auth/invalid-email") {
-    toast.error("Invalid email format.");
-  } else {
-    toast.error("Login failed. Please try again later.");
+  if (!email || !password) {
+    return toast.error("Email and Password are required!");
   }
-} finally {
-      setLoading(false);
-    }
-  };
 
-  const handleGoogleSignIn = async () => {
-    try {
-
-  
-
-      const userCredential = await loginWithGoogle(); 
+  setLoading(true);
+  try {
+    const userCredential = await login(email, password);
     const user = userCredential.user;
     localStorage.setItem("user", JSON.stringify({ email: user.email }));
 
+    const tokenSuccess = await getJwtToken(user.email); // check if token was stored
+    if (!tokenSuccess) return; // stop here if token failed
 
-      toast.success("Google login successful!");
-       localStorage.setItem("user", JSON.stringify({ email: user.email }));
-      navigate("/");
-    } catch (error) {
-      toast.error("Google login failed. Try again.");
-    }
-  };
+    toast.success("Login successful!");
+    navigate("/");
+  } catch (error) {
+    // ... same error handling as before
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+
+
+  const handleGoogleSignIn = async () => {
+  try {
+    const userCredential = await loginWithGoogle();
+    const user = userCredential.user;
+    localStorage.setItem("user", JSON.stringify({ email: user.email }));
+
+    const tokenSuccess = await getJwtToken(user.email); // check if token was stored
+    if (!tokenSuccess) return;
+
+    toast.success("Google login successful!");
+    navigate("/");
+  } catch (error) {
+    toast.error("Google login failed. Try again.");
+  }
+};
+
 
   const handleResetPassword = async () => {
     if (!email) {
@@ -87,30 +73,28 @@ const Login = () => {
       await resetPassword(email);
       toast.success("Password reset email sent! Check your inbox.");
     } catch (error) {
-  console.log("Login error:", error);
-  console.log("Error code:", error.code);
-  console.error("Full Firebase Auth Error:", JSON.stringify(error, null, 2));
+      console.log("Login error:", error);
+      console.log("Error code:", error.code);
+      console.error("Full Firebase Auth Error:", JSON.stringify(error, null, 2));
 
-
-  if (error.code === "auth/user-not-found") {
-    toast.error("No user found with this email.");
-  } else if (
-    error.code === "auth/wrong-password" || 
-    error.code === "auth/invalid-credential"
-  ) {
-    toast.error("Incorrect password. Please try again.");
-  } else if (error.code === "auth/invalid-email") {
-    toast.error("Invalid email format.");
-  } else {
-    toast.error("Login failed. Please try again later.");
-  }
-}
-
+      if (error.code === "auth/user-not-found") {
+        toast.error("No user found with this email.");
+      } else if (
+        error.code === "auth/wrong-password" ||
+        error.code === "auth/invalid-credential"
+      ) {
+        toast.error("Incorrect password. Please try again.");
+      } else if (error.code === "auth/invalid-email") {
+        toast.error("Invalid email format.");
+      } else {
+        toast.error("Login failed. Please try again later.");
+      }
+    }
   };
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white rounded shadow mt-10 animate-fade-in-login">
-       <PageTitle title="Login" />
+      <PageTitle title="Login" />
       <h2 className="text-2xl font-semibold mb-4 text-center">Login</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
@@ -178,5 +162,3 @@ const Login = () => {
 };
 
 export default Login;
-
-

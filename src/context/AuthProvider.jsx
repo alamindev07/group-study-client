@@ -1,3 +1,4 @@
+
 import { createContext, useEffect, useState } from "react";
 import {
   getAuth,
@@ -11,6 +12,7 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 import app from "../firebase/firebase.config";
+import { getJWT } from "../utils/getJWT"; //  Import helper
 
 export const AuthContext = createContext();
 const auth = getAuth(app);
@@ -41,23 +43,14 @@ const AuthProvider = ({ children }) => {
   // Logout
   const logout = () => {
     setLoading(true);
+    localStorage.removeItem("token"); //  Clear JWT
     return signOut(auth);
   };
 
   const resetPassword = (email) => {
-  setLoading(true);
-  return sendPasswordResetEmail(auth, email);
-};
-
-
-  // Auth Observer
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, currentUser => {
-      setUser(currentUser);
-      setLoading(false);
-    });
-    return () => unsubscribe();
-  }, []);
+    setLoading(true);
+    return sendPasswordResetEmail(auth, email);
+  };
 
   const updateUserProfile = (name, photo) => {
     return updateProfile(auth.currentUser, {
@@ -65,6 +58,22 @@ const AuthProvider = ({ children }) => {
       photoURL: photo,
     });
   };
+
+  // Auth Observer
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      setUser(currentUser);
+      setLoading(false);
+
+      if (currentUser?.email) {
+        await getJWT(currentUser.email); // ✅ Get and save token
+      } else {
+        localStorage.removeItem("token");
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
 
   const authInfo = {
     user,

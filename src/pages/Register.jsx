@@ -7,7 +7,7 @@ import { HiEye, HiEyeOff } from "react-icons/hi";
 import PageTitle from "../components/shared/PageTitle";
 
 const Register = () => {
-  const { register, updateUserProfile } = useAuth(); // use `register` instead of createUser
+  const { register, updateUserProfile } = useAuth(); 
   const navigate = useNavigate();
 
   const [name, setName] = useState("");
@@ -41,7 +41,7 @@ const Register = () => {
 
       await updateUserProfile(name, photoURL);
       toast.success("Registration successful!");
-      navigate("/login");
+      navigate("/");
     } catch (error) {
       toast.error(error.message);
     } finally {
@@ -51,9 +51,11 @@ const Register = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-100 to-purple-100 px-4">
-       <PageTitle title="Register" />
+      <PageTitle title="Register" />
       <div className="bg-white shadow-2xl rounded-2xl p-8 max-w-md w-full space-y-6 animate-fade-in">
-        <h2 className="text-3xl font-bold text-center text-gray-800">Register</h2>
+        <h2 className="text-3xl font-bold text-center text-gray-800">
+          Register
+        </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Name */}
           <div className="relative">
@@ -125,7 +127,10 @@ const Register = () => {
 
         <p className="text-center text-sm text-gray-600">
           Already have an account?{" "}
-          <Link to="/login" className="text-blue-600 font-medium hover:underline">
+          <Link
+            to="/login"
+            className="text-blue-600 font-medium hover:underline"
+          >
             Login here
           </Link>
         </p>

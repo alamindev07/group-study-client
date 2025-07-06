@@ -6,6 +6,7 @@ const PendingAssignments = () => {
   const [submissions, setSubmissions] = useState([]);
   const [selected, setSelected] = useState(null);
   const user = JSON.parse(localStorage.getItem("user"));
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch(`https://carrer-code-server-two.vercel.app/api/submissions/all`)
@@ -21,6 +22,9 @@ const PendingAssignments = () => {
       .catch((err) => {
         console.error(err);
         toast.error("Failed to load pending assignments");
+      })
+        .finally(() => {
+        setLoading(false); // Always stop loading
       });
   }, [user?.email]);
 
@@ -68,7 +72,11 @@ const PendingAssignments = () => {
         Pending Assignments
       </h2>
 
-      {submissions.length === 0 ? (
+       {loading ? (
+        <div className="flex justify-center items-center h-32">
+          <span className="loading loading-spinner text-primary loading-lg"></span>
+        </div>
+      ) : submissions.length === 0 ? (
         <p className="text-xl text-center text-gray-500">
           No pending assignments available.
         </p>
