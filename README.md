@@ -1,12 +1,59 @@
-# React + Vite
+# GroupStudyHub
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![GroupStudyHub Screenshot](./gitImages/group-studyHome.png)  
+*A collaborative platform for students to create, submit, and manage assignments efficiently.*
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Project Overview  
+GroupStudyHub is a user-friendly platform designed to streamline the assignment process. Students can create and submit assignments, while examiners review submissions and assign marks. The system promotes transparency and ease of collaboration between students and examiners.  
+Built with React.js for the frontend and Node.js with Express.js for the backend, using MongoDB for the database.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## 🌐 Live Demo  
+[View Live Project](https://online-group-study-7bd5d.web.app/)  
+
+---
+
+## 🛠️ Technologies Used  
+- **Frontend:** React.js, Tailwind CSS  
+- **Backend:** Node.js, Express.js  
+- **Database:** MongoDB    
+- **Tools:** Git, VS Code, REST APIs  
+
+---
+
+## ✨ Features  
+- Student registration, login, and profile management  
+- Create and submit assignments  
+- Examiner dashboard to review and grade assignments  
+- Real-time assignment status tracking    
+- Responsive and intuitive user interface  
+
+---
+
+## ⚙️ Dependencies  
+- react 18.x  
+- react-router-dom  
+- axios  
+- express 4.x  
+- mongoose 6.x  
+- stripe (optional)  
+- dotenv  
+- cors  
+
+---
+
+## 🏗️ Getting Started (Run Locally)  
+
+### Prerequisites  
+- Node.js (v14 or later)  
+- MongoDB (local or cloud instance)  
+
+### Installation Steps  
+
+1. **Clone the frontend repo:**  
+   ```bash
+   git clone https://github.com/alamindev07/group-study-hub-client.git
+   cd group-study-hub-client
