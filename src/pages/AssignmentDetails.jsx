@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import PageTitle from "../components/shared/PageTitle";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const AssignmentDetails = () => {
+   const navigate = useNavigate();
   const { id } = useParams();
   const [assignment, setAssignment] = useState(null);
   const [showModal, setShowModal] = useState(false);
@@ -59,7 +61,9 @@ const AssignmentDetails = () => {
   };
 
   if (!assignment)
-    return <p className="text-center py-10 text-lg">Loading...</p>;
+    return <div>
+              <LoadingSpinner></LoadingSpinner>
+            </div>;
 
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
@@ -68,9 +72,22 @@ const AssignmentDetails = () => {
        <PageTitle title="AssignmentDetails" />
 
       <div className="bg-base-100 shadow-lg rounded-lg overflow-hidden p-4 md:p-6">
-        <h2 className="text-2xl font-bold text-center mb-4">
-          {assignment.title}
-        </h2>
+      
+     <div className="relative flex items-center mb-4">
+  {/* Back Button - fixed to left */}
+  <button
+    onClick={() => navigate(-1)}
+    className="btn btn-outline btn-secondary absolute left-0"
+  >
+    ⬅ Back
+  </button>
+
+  {/* Title - centered */}
+  <h2 className="text-2xl font-bold text-center w-full text-base-content">
+    {assignment.title}
+  </h2>
+</div>
+
 
         <div className="flex flex-col md:flex-row gap-6 items-center">
           <img
@@ -91,7 +108,7 @@ const AssignmentDetails = () => {
             </p>
             <button
               onClick={() => setShowModal(true)}
-              className="btn btn-primary mt-4 w-full sm:w-auto"
+              className="btn btn-secondary rounded-full mt-4 w-full sm:w-auto"
             >
               Take Assignment
             </button>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import PageTitle from "../components/shared/PageTitle";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const PendingAssignments = () => {
   const [submissions, setSubmissions] = useState([]);
@@ -73,9 +74,9 @@ const PendingAssignments = () => {
       </h2>
 
        {loading ? (
-        <div className="flex justify-center items-center h-32">
-          <span className="loading loading-spinner text-primary loading-lg"></span>
-        </div>
+       <div>
+                 <LoadingSpinner></LoadingSpinner>
+               </div>
       ) : submissions.length === 0 ? (
         <p className="text-xl text-center text-gray-500">
           No pending assignments available.

@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import axiosSecure from "../hooks/axiosSecure";
 import PageTitle from "../components/shared/PageTitle";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const Assignments = () => {
   const [assignments, setAssignments] = useState([]);
@@ -72,8 +73,8 @@ const Assignments = () => {
 
       {/*  Spinner when loading */}
       {loading ? (
-        <div className="flex justify-center items-center h-64">
-          <span className="loading loading-spinner loading-lg text-primary"></span>
+        <div>
+          <LoadingSpinner></LoadingSpinner>
         </div>
       ) : (
         <>

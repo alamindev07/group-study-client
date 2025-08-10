@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import PageTitle from "../components/shared/PageTitle";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const MyAssignments = () => {
   const user = JSON.parse(localStorage.getItem("user"));
@@ -30,8 +31,9 @@ const MyAssignments = () => {
       </h2>
 
       {loading ? (
-        <div className="flex justify-center items-center h-32">
-          <span className="loading loading-spinner text-primary loading-lg"></span>
+    
+        <div>
+          <LoadingSpinner></LoadingSpinner>
         </div>
       ) : mySubmissions.length === 0 ? (
         <div className="text-center py-10">

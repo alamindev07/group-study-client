@@ -6,6 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../firebase/firebase.config";
 import { AuthContext } from "../../context/AuthProvider";
 import ThemeToggle from "./ThemeToggle";
+import LoadingSpinner from "../LoadingSpinner";
 
 const Navbar = () => {
   const { logout } = useContext(AuthContext);
@@ -66,13 +67,7 @@ const Navbar = () => {
     </>
   );
 
-  if (loading) {
-    return (
-      <div className="w-full py-10 text-center">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
-      </div>
-    );
-  }
+
 
   return (
     <div className="bg-secondary text-primary-content shadow sticky top-0 z-50 w-full">
