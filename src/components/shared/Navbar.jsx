@@ -1,5 +1,4 @@
 
-
 import { Link, NavLink } from "react-router-dom";
 import { useContext } from "react";
 import { toast } from "react-toastify";
@@ -15,10 +14,9 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await logout();
-         localStorage.removeItem("token"); // remove JWT or token
-         localStorage.removeItem("user");  //  remove stored user info
-
-         toast.success("Logged out successfully!");
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      toast.success("Logged out successfully!");
     } catch (err) {
       toast.error("Error during logout.");
     }
@@ -26,7 +24,7 @@ const Navbar = () => {
 
   const navLinkStyle = ({ isActive }) =>
     isActive
-      ? "font-medium bg-primary text-white rounded px-3 py-1"
+      ? "font-medium bg-primary text-primary-content rounded px-3 py-1"
       : "font-medium text-base-content px-3 py-1 hover:bg-base-300 rounded";
 
   const navLinks = (
@@ -39,6 +37,11 @@ const Navbar = () => {
       <li>
         <NavLink to="/assignments" className={navLinkStyle} onClick={() => document.activeElement?.blur()}>
           Assignments
+        </NavLink>
+      </li>
+      <li>
+        <NavLink to="/aboutUs" className={navLinkStyle} onClick={() => document.activeElement?.blur()}>
+          About Us
         </NavLink>
       </li>
       {user && (
@@ -72,7 +75,7 @@ const Navbar = () => {
   }
 
   return (
-    <div className="bg-teal-200 shadow sticky top-0 z-50">
+    <div className="bg-secondary text-primary-content shadow sticky top-0 z-50 w-full">
       <div className="navbar max-w-7xl mx-auto px-4">
         {/* Start */}
         <div className="navbar-start">
@@ -84,12 +87,7 @@ const Navbar = () => {
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
             </label>
             <ul
@@ -112,20 +110,12 @@ const Navbar = () => {
               ) : (
                 <>
                   <li>
-                    <Link
-                      to="/login"
-                      className="btn btn-outline btn-sm"
-                      onClick={() => document.activeElement?.blur()}
-                    >
+                    <Link to="/login" className="btn btn-outline btn-sm " onClick={() => document.activeElement?.blur()}>
                       Login
                     </Link>
                   </li>
                   <li>
-                    <Link
-                      to="/register"
-                      className="btn btn-error btn-sm"
-                      onClick={() => document.activeElement?.blur()}
-                    >
+                    <Link to="/register" className="btn btn-error btn-sm" onClick={() => document.activeElement?.blur()}>
                       Register
                     </Link>
                   </li>
@@ -133,10 +123,7 @@ const Navbar = () => {
               )}
             </ul>
           </div>
-          <Link
-            to="/"
-            className="text-xl md:text-2xl font-bold text-primary ml-2"
-          >
+          <Link to="/" className="text-xl md:text-2xl font-bold">
             📚 GroupStudyHub
           </Link>
         </div>
@@ -155,12 +142,8 @@ const Navbar = () => {
                 className="btn btn-ghost btn-circle avatar tooltip"
                 data-tip={user.displayName || "User"}
               >
-                <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-                  <img
-                    src={user.photoURL || "/default-user.png"}
-                    alt="User"
-                    referrerPolicy="no-referrer"
-                  />
+                <div className="w-10 rounded-full ring ring-primary-content ring-offset-primary ring-offset-2">
+                  <img src={user.photoURL || "/default-user.png"} alt="User" referrerPolicy="no-referrer" />
                 </div>
               </div>
               <ul
@@ -197,16 +180,10 @@ const Navbar = () => {
             </div>
           ) : (
             <>
-              <Link
-                to="/login"
-                className="btn btn-outline btn-sm hidden mr-2 md:inline-block"
-              >
+              <Link to="/login" className="btn btn-outline btn-primary btn-sm hidden mr-2 md:inline-block">
                 Login
               </Link>
-              <Link
-                to="/register"
-                className="btn btn-outline btn-sm hidden md:inline-block"
-              >
+              <Link to="/register" className="btn btn-outline btn-sm hidden md:inline-block">
                 Register
               </Link>
             </>

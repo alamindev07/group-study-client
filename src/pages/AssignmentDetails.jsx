@@ -11,6 +11,7 @@ const AssignmentDetails = () => {
 
   useEffect(() => {
     fetch(`https://carrer-code-server-two.vercel.app/api/assignments/${id}`)
+    // fetch(`http://localhost:5000/api/assignments/${id}`)
       .then((res) => res.json())
       .then((data) => setAssignment(data))
       .catch((err) => {

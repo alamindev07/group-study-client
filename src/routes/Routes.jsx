@@ -12,6 +12,7 @@ import UpdateAssignment from "../pages/UpdateAssignment";
 import AssignmentDetails from "../pages/AssignmentDetails";
 import PendingAssignments from "../pages/PendingAssignments";
 import ErrorPage from "../pages/ErrorPage";
+import AboutUs from "../pages/AboutUs";
 
 const router = createBrowserRouter([
   {
@@ -32,7 +33,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/assignments",
-        element: <Assignments />, // Optional: wrap in PrivateRoute if needed
+        element: <Assignments />, 
+      },
+      {
+        path: "/aboutUs",
+        element: <AboutUs />, 
       },
       {
         path: "/my-assignments",
