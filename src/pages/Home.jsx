@@ -80,7 +80,7 @@ const Home = () => {
 
       {/* Features Section */}
       <section>
-        <h2 className="text-3xl font-bold text-center mb-10">Features</h2>
+        <h2 className="text-3xl font-bold text-center mb-10 text-pink-600">Features</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {[
             {
@@ -101,16 +101,16 @@ const Home = () => {
           ].map((f, i) => (
             <motion.div
               key={i}
-              className="p-6 bg-gray-100 dark:bg-gray-800 rounded-xl shadow hover:shadow-xl transition duration-300"
+              className="p-6 bg-gray-100   rounded-xl shadow hover:shadow-xl transition duration-300"
               whileHover={{ scale: 1.05 }}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.15 }}
             >
-              <div className="text-4xl text-primary mb-4">{f.icon}</div>
-              <h3 className="text-xl font-semibold mb-2 text-black">{f.title}</h3>
-              <p className="text-gray-700 dark:text-gray-300">{f.desc}</p>
+              <div className="text-4xl text-orange-400 mb-4 dark:text-red-400">{f.icon}</div>
+              <h3 className="text-xl font-semibold mb-2 text-slate-600">{f.title}</h3>
+              <p className="text-gray-700">{f.desc}</p>
             </motion.div>
           ))}
         </div>
@@ -122,13 +122,13 @@ const Home = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
         viewport={{ once: true }}
-        className="bg-gradient-to-r from-blue-100 via-purple-100 to-pink-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 rounded-xl py-12 px-6 text-center"
+        className="bg-gray-300 dark:bg-orange-200 rounded-2xl py-12 px-6 text-center"
       >
         <h2 className="text-3xl md:text-4xl font-bold mb-6 flex justify-center items-center gap-2">
-          <FaStar className="text-yellow-500" /> <span className="text-black">Why Choose{" "}</span>
-          <span className="text-primary">GroupStudyHub</span>?
+          <FaStar className="text-yellow-500" /> <span className="text-orange-400">Why Choose{" "}</span>
+          <span className="text-primary ">GroupStudyHub</span>?
         </h2>
-        <p className="max-w-3xl mx-auto text-gray-700 dark:text-gray-300 text-lg">
+        <p className="max-w-3xl mx-auto text-gray-700 dark:text-slate-600 text-lg">
           Unlike traditional LMS platforms, GroupStudyHub is optimized for fast collaboration,
           real-time assignment tracking, and seamless grading—all designed for group-based
           academic growth.
@@ -151,13 +151,13 @@ const Home = () => {
               aria-expanded={openFaq === i}
             >
               <div className="flex items-center justify-between">
-                <h4 className="font-semibold text-lg flex items-center gap-2">
+                <h4 className="font-semibold text-lg flex items-center gap-2 text-gray-400">
                   <FaQuestion className="text-primary" /> {faq.q}
                 </h4>
-                <span className="text-xl">{openFaq === i ? "−" : "+"}</span>
+                <span className="text-xl text-gray-600">{openFaq === i ? "−" : "+"}</span>
               </div>
               <div
-                className={`mt-2 text-gray-700 dark:text-gray-300 transition-all duration-300 ${
+                className={`mt-2 text-slate-500 dark:text-yellow-200 transition-all duration-300 ${
                   openFaq === i ? "max-h-[200px]" : "max-h-0 overflow-hidden"
                 }`}
               >

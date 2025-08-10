@@ -28,7 +28,7 @@ export default function AboutUs() {
         <div className="flex flex-col md:flex-row items-center gap-8">
           {/* Profile Picture */}
           <img
-            src="https://i.ibb.co.com/mCLBh97B/1714380656600.jpg"
+            src="https://i.ibb.co.com/CpHYBKFC/1708771867435.jpg"
             alt="Alamin"
             className="w-60 h-60 rounded-full shadow-lg border-4 border-primary object-cover"
           />
