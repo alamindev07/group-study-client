@@ -110,12 +110,12 @@ const Navbar = () => {
               ) : (
                 <>
                   <li>
-                    <Link to="/login" className="btn btn-outline btn-sm " onClick={() => document.activeElement?.blur()}>
+                    <Link to="/login" className="btn btn-outline btn-sm btn-error mb-2" onClick={() => document.activeElement?.blur()}>
                       Login
                     </Link>
                   </li>
                   <li>
-                    <Link to="/register" className="btn btn-error btn-sm" onClick={() => document.activeElement?.blur()}>
+                    <Link to="/register" className="btn btn-success btn-sm" onClick={() => document.activeElement?.blur()}>
                       Register
                     </Link>
                   </li>
@@ -148,7 +148,7 @@ const Navbar = () => {
               </div>
               <ul
                 tabIndex={0}
-                className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-base-200 rounded-box w-52"
+                className="mt-3 p-2 shadow menu menu-sm dropdown-content bg-slate-500 rounded-box w-52"
               >
                 <li>
                   <Link to="/create-assignment" onClick={() => document.activeElement?.blur()}>
@@ -171,7 +171,7 @@ const Navbar = () => {
                       document.activeElement?.blur();
                       handleLogout();
                     }}
-                    className="btn btn-error btn-sm mt-2"
+                    className="btn btn-error btn-sm mt-2 hover:bg-green-500"
                   >
                     Logout
                   </button>
