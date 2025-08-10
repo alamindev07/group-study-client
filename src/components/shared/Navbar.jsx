@@ -180,10 +180,10 @@ const Navbar = () => {
             </div>
           ) : (
             <>
-              <Link to="/login" className="btn btn-outline btn-primary btn-sm hidden mr-2 md:inline-block">
+              <Link to="/login" className="btn btn-outline btn-neutral btn-sm hidden mr-2 md:inline-block">
                 Login
               </Link>
-              <Link to="/register" className="btn btn-outline btn-sm hidden md:inline-block">
+              <Link to="/register" className="btn btn-outline btn-sm btn-active bg-green-500 hidden md:inline-block">
                 Register
               </Link>
             </>
